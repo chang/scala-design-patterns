@@ -56,19 +56,19 @@ class MazeGame {
     // Now let's try creating rooms using a factory method.
     // This seems like it gets the same result, but looks at what happens when we try to create
     // a different version of the game...
-    def play_game_factory() = {
+    def playGameFactory() = {
         startMessage()
 
-        val startRoom = makeRoom_factory()
-        val middleRoom = makeRoom_factory()
-        val bossRoom = makeRoom_factory()
+        val startRoom = makeRoom()
+        val middleRoom = makeRoom()
+        val bossRoom = makeRoom()
 
         startRoom.passThroughRoom()
         middleRoom.passThroughRoom()
         bossRoom.passThroughRoom()
     }
 
-    def makeRoom_factory(): Room = {
+    def makeRoom(): Room = {
         new NormalRoom()
     }
 }
@@ -77,7 +77,7 @@ class HardMazeGame extends MazeGame {
     // Dayum. All we needed to do was override the factory method.
     // To do this using playGameCoupled(), we would've needed to overwrite the whole method,
     // including stuff that doesn't even have to do with room creation!
-    override def makeRoom_factory(): Room = {
+    override def makeRoom(): Room = {
         new BossRoom()
     }
 
@@ -88,7 +88,7 @@ class VariedMazeGame extends MazeGame {
     // Another fancier example.
     var n = 0
 
-    override def makeRoom_factory(): Room = {
+    override def makeRoom(): Room = {
         n += 1
         n match {
             case 1 => new SafeRoom()
@@ -102,10 +102,10 @@ class VariedMazeGame extends MazeGame {
 
 
 val game = new MazeGame()
-game.play_game_factory()
+game.playGameFactory()
 
 val hard_game = new HardMazeGame()
-hard_game.play_game_factory()
+hard_game.playGameFactory()
 
 val varied_game = new VariedMazeGame()
-varied_game.play_game_factory()
+varied_game.playGameFactory()
